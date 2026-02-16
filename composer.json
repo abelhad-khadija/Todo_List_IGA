@@ -1,0 +1,7 @@
+{
+    "name": "taskflow/gestionnaire-taches",
+    "description": "Gestionnaire de Tâches - TaskFlow",
+    "require": {
+        "phpmailer/phpmailer": "^6.9"
+    }
+}

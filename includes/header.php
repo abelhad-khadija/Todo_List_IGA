@@ -55,6 +55,11 @@
                 </ul>
 
                 <div class="d-flex align-items-center">
+                    <!-- Bouton Rappels Email -->
+                    <button class="btn btn-outline-light btn-sm me-2" id="btnRappels" onclick="envoyerRappels()" title="Envoyer les rappels par email">
+                        <i class="bi bi-envelope me-1"></i> Rappels
+                    </button>
+
                     <!-- Bouton Mode Sombre -->
                     <button class="btn btn-outline-light btn-sm me-2" id="btnModeSombre" title="Changer le thème">
                         <i class="bi bi-moon-fill" id="iconeTheme"></i>

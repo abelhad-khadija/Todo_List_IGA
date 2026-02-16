@@ -373,6 +373,41 @@ function afficherNotification(titre, message, type = 'info') {
 }
 
 /* =====================================================
+   Rappels par email
+   ===================================================== */
+
+function envoyerRappels() {
+    const btn = document.getElementById('btnRappels');
+    if (!btn) return;
+
+    // Désactiver le bouton pendant l'envoi
+    const texteOriginal = btn.innerHTML;
+    btn.disabled = true;
+    btn.innerHTML = '<i class="bi bi-hourglass-split me-1"></i> Envoi...';
+
+    fetch('api/rappels.php', {
+        method: 'POST',
+        body: new URLSearchParams({ forcer: '0' })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.succes) {
+            afficherNotification('Rappels', data.message, 'success');
+        } else {
+            afficherNotification('Rappels', data.message, 'warning');
+        }
+    })
+    .catch(error => {
+        afficherNotification('Erreur', 'Impossible d\'envoyer les rappels.', 'danger');
+        console.error('Erreur:', error);
+    })
+    .finally(() => {
+        btn.disabled = false;
+        btn.innerHTML = texteOriginal;
+    });
+}
+
+/* =====================================================
    Utilitaires
    ===================================================== */
 

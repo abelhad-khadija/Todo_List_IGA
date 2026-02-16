@@ -106,3 +106,14 @@ INSERT INTO taches_etiquettes (tache_id, etiquette_id) VALUES
 (10, 4), -- Guide - Documentation
 (11, 4), -- API Doc - Documentation
 (11, 6); -- API Doc - Backend
+
+-- =====================================================
+-- Table de log des rappels par email
+-- =====================================================
+CREATE TABLE IF NOT EXISTS rappels_log (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    date_envoi TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    nb_taches INT,
+    email_destinataire VARCHAR(255),
+    statut ENUM('envoye', 'echec') DEFAULT 'envoye'
+) ENGINE=InnoDB;
