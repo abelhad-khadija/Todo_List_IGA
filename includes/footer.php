@@ -62,7 +62,7 @@
 
                             <div class="col-md-4 mb-3">
                                 <label for="date_echeance" class="form-label">Date d'échéance</label>
-                                <input type="date" class="form-control" id="date_echeance" name="date_echeance">
+                                <input type="date" class="form-control" id="date_echeance" name="date_echeance" min="<?php echo date('Y-m-d'); ?>">
                             </div>
                         </div>
 
