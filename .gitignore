@@ -1,0 +1,5 @@
+# Dépendances
+/vendor/
+
+# Variables d'environnement (contient les secrets)
+.env

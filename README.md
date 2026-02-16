@@ -42,50 +42,51 @@ mysql -u root -p todo_list < database.sql
 
 Ou via phpMyAdmin : importez le fichier `database.sql`.
 
-### 3. Configurer la connexion
-
-Modifiez le fichier `config/database.php` si nécessaire :
-
-```php
-define('DB_HOST', 'localhost');
-define('DB_NAME', 'todo_list');
-define('DB_USER', 'root');
-define('DB_PASS', '');
-```
-
-### 4. Installer les dépendances PHP
+### 3. Installer les dépendances PHP
 
 ```bash
 composer install
 ```
 
-Cela installe PHPMailer, nécessaire pour les rappels par email.
+Cela installe PHPMailer (envoi d'emails) et phpdotenv (variables d'environnement).
 
-### 5. Configurer les rappels par email
+### 4. Configurer l'environnement
 
-Modifiez le fichier `config/mail.php` avec vos identifiants SMTP :
+Copiez le fichier `.env.example` en `.env` et remplissez vos valeurs :
 
-```php
-// Paramètres SMTP
-define('MAIL_HOST', 'smtp.gmail.com');       // Serveur SMTP
-define('MAIL_PORT', 587);                     // Port SMTP
-define('MAIL_USERNAME', 'votre-email@gmail.com');  // Votre adresse Gmail
-define('MAIL_PASSWORD', 'xxxx xxxx xxxx xxxx');    // Mot de passe d'application
-define('MAIL_ENCRYPTION', 'tls');             // 'tls' ou 'ssl'
+```bash
+cp .env.example .env
+```
 
-// Destinataire des rappels
-define('MAIL_DESTINATAIRE', 'destinataire@email.com');
-define('MAIL_NOM_DESTINATAIRE', 'Gestionnaire TaskFlow');
+Puis éditez `.env` avec vos paramètres :
 
-// Expéditeur
-define('MAIL_FROM', 'votre-email@gmail.com');
-define('MAIL_FROM_NOM', 'TaskFlow - Rappels');
+```env
+# Base de données
+DB_HOST=localhost
+DB_NAME=todo_list
+DB_USER=root
+DB_PASS=
+
+# SMTP (email)
+MAIL_HOST=smtp.gmail.com
+MAIL_PORT=587
+MAIL_USERNAME=votre-email@gmail.com
+MAIL_PASSWORD=xxxx xxxx xxxx xxxx
+MAIL_ENCRYPTION=tls
+
+# Destinataire et expéditeur
+MAIL_DESTINATAIRE=destinataire@email.com
+MAIL_NOM_DESTINATAIRE=Gestionnaire TaskFlow
+MAIL_FROM=votre-email@gmail.com
+MAIL_FROM_NOM=TaskFlow - Rappels
 ```
 
 **Pour Gmail** : vous devez générer un mot de passe d'application :
 1. Allez sur https://myaccount.google.com/apppasswords
 2. Sélectionnez "Autre" et nommez-le "TaskFlow"
 3. Copiez le mot de passe généré dans `MAIL_PASSWORD`
+
+> **Note** : Le fichier `.env` contient vos secrets et ne doit jamais être commité dans git. Seul `.env.example` (avec des valeurs placeholder) est versionné.
 
 **Envoi automatique (cron)** : pour envoyer les rappels quotidiennement à 8h :
 
@@ -95,7 +96,7 @@ define('MAIL_FROM_NOM', 'TaskFlow - Rappels');
 
 Vous pouvez aussi envoyer les rappels manuellement via le bouton "Rappels" dans la barre de navigation.
 
-### 6. Lancer l'application
+### 5. Lancer l'application
 
 - **Avec XAMPP/WAMP** : Placez le dossier dans `htdocs` ou `www`, puis accédez à `http://localhost/taskflow`
 - **Avec PHP intégré** :
@@ -117,6 +118,7 @@ taskflow/
 │   ├── etiquettes.php      # CRUD étiquettes
 │   └── rappels.php         # Envoi des rappels par email
 ├── config/
+│   ├── bootstrap.php       # Chargement des variables d'environnement
 │   ├── database.php        # Configuration BDD
 │   └── mail.php            # Configuration SMTP et email
 ├── cron/
@@ -133,6 +135,9 @@ taskflow/
 ├── kanban.php              # Vue Kanban
 ├── projets.php             # Gestion des projets
 ├── statistiques.php        # Statistiques
+├── .env                    # Variables d'environnement (non versionné)
+├── .env.example            # Modèle de configuration
+├── .gitignore              # Fichiers ignorés par git
 ├── composer.json           # Dépendances PHP
 ├── database.sql            # Script SQL
 └── README.md               # Documentation
